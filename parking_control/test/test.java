@@ -12,5 +12,7 @@ public class test {
 
 
         parkingController.listAllSpots(parkingLot);
+        parkingController.allocateCar(1,2);
+        parkingController.listAvailableSpots(parkingLot);
     }
 }
