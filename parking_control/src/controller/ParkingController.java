@@ -14,8 +14,12 @@ public class ParkingController {
         }
     }
 
-    public void listAllSpots() {
-
+    public void listAllSpots(ParkingLot parkingLot) {
+        for (int i = 0; i < parkingLot.getSpots().length; i++) {
+            for (int j = 0; j < parkingLot.getSpots()[i].length; j++) {
+                System.out.println(parkingLot.getSpots()[i][j]);
+            }
+        }
     }
 
     public void allocateCar(int line, int column) {
