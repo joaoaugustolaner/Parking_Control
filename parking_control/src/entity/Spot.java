@@ -2,8 +2,11 @@ package entity;
 
 public class Spot {
 
-    private boolean isOccupied = false;
+    private boolean isOccupied;
 
+    public Spot() {
+        this.isOccupied = false;
+    }
 
     public boolean isOccupied() {
         return isOccupied;

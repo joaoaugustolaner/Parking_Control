@@ -2,18 +2,17 @@ package entity;
 
 public class ParkingLot {
 
-    Spot[][] spots;
+   private Spot[][] spots;
 
-    public ParkingLot(int length, int width) {
-        this.spots = new Spot[length][width];
-    }
+   public ParkingLot(int width, int length) {
+      this.spots = new Spot[width][length];
+   }
 
+   public Spot[][] getSpots() {
+      return spots;
+   }
 
-    public Spot[][] getSpots() {
-        return spots;
-    }
-
-    public void setSpots(Spot[][] spots) {
-        this.spots = spots;
-    }
+   public void setSpots(Spot[][] spots) {
+      this.spots = spots;
+   }
 }
