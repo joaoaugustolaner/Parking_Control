@@ -7,10 +7,10 @@ public class ParkingController {
     ParkingLot parkingLot = new ParkingLot(100, 100);
 
     public void listAvailableSpots(ParkingLot parkingLot) {
+        System.out.println("These spots are current available");
         for (int i = 0; i < parkingLot.getSpots().length; i++) {
             for (int j = 0; j < parkingLot.getSpots()[i].length; j++) {
                 if(!parkingLot.getSpots()[i][j].isOccupied()) {
-                    System.out.println("These spots are current available");
                     System.out.print(parkingLot.getSpots()[i][j].isOccupied() + "\t");
                 }
             }
@@ -30,18 +30,18 @@ public class ParkingController {
 
     public void allocateCar(int line, int column) {
         if(parkingLot.getSpots()[line][column].isOccupied()) {
-            System.out.println("Sorry, this spot is already occupied! please choose another one.");
+            System.out.println("Sorry, this spot is already occupied! please choose another one. \n");
         } else {
             parkingLot.getSpots()[line][column].setOccupied(true);
-            System.out.println("Great! This spot " + line + " " + column + " is now occpupied by you!");
+            System.out.println("Great! This spot " + line  + column + " is now occpupied by you! \n");
         }
     }
 
     public void removeCar(int line, int column) {
         if(!parkingLot.getSpots()[line][column].isOccupied()){
-            System.out.println("This spot is now free!");
+            System.out.println("This spot is now free! \n");
         } else {
-            System.out.println("This is not a vallid spot, please, select another one!");
+            System.out.println("This is not a vallid spot, please, select another one! \n");
         }
     }
 }
