@@ -49,7 +49,8 @@ public class ParkingController {
         }
     }
 
-    public void removeCar(int line, int column) {
+    public void removeCar(int line, int column) throws IllegalArgumentException{
+        
         if(parkingLot.getSpots()[line][column].isOccupied()){
             parkingLot.getSpots()[line][column].setOccupied(false);
             System.out.println("The spot " + line + column + " is now free! \n");

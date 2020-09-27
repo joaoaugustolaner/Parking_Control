@@ -12,7 +12,9 @@ public class Server {
 
     public static void main(String[] args) throws Exception {
         int option = 0;
+        int line, column;
 
+        ParkingController parkingController = new ParkingController(new ParkingLot(3, 3));
         ServerSocket reception = new ServerSocket(8080);
 
         //connection
@@ -30,35 +32,52 @@ public class Server {
 
         while (option != 5) {
 
-            System.out.println("1 - Cadastrar Veículo");
-            System.out.println("2 - Remover Veículo");
-            System.out.println("3 - Listar vagas disponíveis");
-            System.out.println("4 - Listar todas as vagas");
-            System.out.println("5 - SAIR");
+            System.out.println("1 - Cadastrar Veículo\n");
+            System.out.println("2 - Remover Veículo\n");
+            System.out.println("3 - Listar vagas disponíveis\n");
+            System.out.println("4 - Listar todas as vagas\n");
+            System.out.println("5 - SAIR\n");
 
             option = scanner.nextInt();
 
             switch (option) {
+
                 case 1:
-                    System.out.println("tá entrei");
+                    Runtime.getRuntime().exec("clear");
+                    System.out.println("\nInforme o lugar a ser reservado: \n");
+                    System.out.println("Informe a linha \n");
+                    line = scanner.nextInt();
+                    System.out.println("Informe a coluna \n");
+                    column = scanner.nextInt();
+                    parkingController.allocateCar(line, column);
                     break;
+
                 case 2:
-                    System.out.println("aham, us guri");
+                    System.out.println("\nInforme o lugar que deseja que seja liberado: \n");
+                    System.out.println("Informe a linha \n");
+                    line = scanner.nextInt();
+                    System.out.println("Informe a coluna \n");
+                    column = scanner.nextInt();
+                    parkingController.removeCar(line, column);
                     break;
+
                 case 3:
-                    System.out.println("lista disponível");
+                    parkingController.listAvailableSpots(parkingController.getParkingLot());
                     break;
+
                 case 4:
-                    System.out.println("lista tudo");
+                    parkingController.listAllSpots(parkingController.getParkingLot());
                     break;
+
                 case 5:
-                    System.out.println("LET ME OUTTTT");
+                    System.out.println("Aplicação finalizada com sucesso");
                     option = 5;
+                    break;
+
                 default:
+                    System.out.println("Escolha uma opção válida\n");
                     break;
             }
-
-
         }
     }
 }
