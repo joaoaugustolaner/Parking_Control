@@ -15,13 +15,6 @@ public class ParkingController {
     }
 
     public String listSpots(ParkingLot parkingLot) {
-        System.out.println("These are all spots available in the parking lot: \n");
-//        for (int i = 0; i < parkingLot.getSpots().length; i++) {
-//            for (int j = 0; j < parkingLot.getSpots()[i].length; j++) {
-//                System.out.print(parkingLot.getSpots()[i][j].isOccupied() + "\t");
-//            }
-//            System.out.println("\n");
-
         return parkingLot.toString();
     }
 
@@ -30,7 +23,7 @@ public class ParkingController {
             return "Sorry, this spot is already occupied! please choose another one. \n";
         }
         parkingLot.getSpots()[line][column].setOccupied(true);
-        return "Great! This spot, line: " + line + "  /  column: " + column + ", is now occpupied by you! \n";
+        return "Great! This spot, line: " + line + " and column: " + column + ", is now occpupied by you! \n";
 
     }
 

@@ -1,6 +1,8 @@
 package entity;
 
-public class ParkingLot {
+import java.io.Serializable;
+
+public class ParkingLot implements Serializable {
 
    private Spot[][] spots;
 

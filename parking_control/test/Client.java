@@ -1,3 +1,5 @@
+import entity.ParkingLot;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
@@ -38,7 +40,7 @@ public class Client {
 
                 case 2:
                     System.out.println("\nInforme o lugar que deseja que seja liberado: \n");
-                    System.out.println(" Informe a linha \n");
+                    System.out.println("Informe a linha \n");
                     outputStream.writeObject(scanner.nextInt());
                     System.out.println("Informe a coluna \n");
                     outputStream.writeObject(scanner.nextInt());
@@ -48,8 +50,13 @@ public class Client {
 
                 case 3:
                     System.out.println("As vagas são: ");
-                    received = (String) inputStream.readObject();
-                    System.out.println(received);
+                    ParkingLot park = (ParkingLot) inputStream.readObject();
+                    for (int i = 0; i < park.getSpots().length; i++) {
+                        for (int j = 0; j < park.getSpots()[i].length; j++) {
+                            System.out.print(park.getSpots()[i][j].isOccupied() + "\t");
+                        }
+                        System.out.println("\n");
+                    }
                     break;
 
                 case 4:
