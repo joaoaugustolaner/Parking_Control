@@ -1,17 +1,14 @@
 import controller.ParkingController;
 import entity.ParkingLot;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Server {
 
     public static void main(String[] args) throws Exception {
-        String option = "0";
+        int option = 0;
         int line, column;
 
         ParkingController parkingController = new ParkingController(new ParkingLot(3, 3));
@@ -20,67 +17,47 @@ public class Server {
         //connection
 
         Socket connection = reception.accept();
-        BufferedReader fromClient = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        DataOutputStream toClient = new DataOutputStream(connection.getOutputStream());
-//
-//            //falta o menu
-//
-//
-//            option = client.read();
-        Scanner scanner = new Scanner(System.in);
-
-        option = fromClient.readLine();
-
-        while (!option.equals("5")) {
-
-//            System.out.println("1 - Cadastrar Veículo\n");
-//            System.out.println("2 - Remover Veículo\n");
-//            System.out.println("3 - Listar vagas disponíveis\n");
-//            System.out.println("4 - Listar todas as vagas\n");
-//            System.out.println("5 - SAIR\n");
-//
-//            option = scanner.nextInt();
+        ObjectOutputStream outputStream = new ObjectOutputStream(connection.getOutputStream());
+        ObjectInputStream inputStream = new ObjectInputStream(connection.getInputStream());
 
 
+        while (option != 4) {
+
+            option = (int) inputStream.readObject();
+            String result;
             switch (option) {
 
-                case "1":
-                    Runtime.getRuntime().exec("clear");
-                    System.out.println("\nInforme o lugar a ser reservado: \n");
-                    System.out.println("Informe a linha \n");
-                    line = scanner.nextInt();
-                    System.out.println("Informe a coluna \n");
-                    column = scanner.nextInt();
-                    parkingController.allocateCar(line, column);
+                case 1:
+
+                    line = (int) inputStream.readObject();
+                    column = (int) inputStream.readObject();
+                    result = (parkingController.allocateCar(line, column));
+                    outputStream.writeObject(result);
                     break;
 
-                case "2":
-                    System.out.println("\nInforme o lugar que deseja que seja liberado: \n");
-                    System.out.println("Informe a linha \n");
-                    line = scanner.nextInt();
-                    System.out.println("Informe a coluna \n");
-                    column = scanner.nextInt();
-                    parkingController.removeCar(line, column);
+                case 2:
+                    line = (int) inputStream.readObject();
+                    column = (int) inputStream.readObject();
+                    result = parkingController.removeCar(line, column);
+                    outputStream.writeObject(result);
                     break;
 
-                case "3":
-                    parkingController.listAvailableSpots(parkingController.getParkingLot());
+                case 3:
+                    result = parkingController.listSpots(parkingController.getParkingLot());
+                    outputStream.writeObject(result);
                     break;
 
-                case "4":
-                    parkingController.listAllSpots(parkingController.getParkingLot());
-                    break;
-
-                case "5":
-                    System.out.println("Aplicação finalizada com sucesso");
-                    option = "5";
+                case 4:
+                    option = 4;
                     break;
 
                 default:
-                    System.out.println("Escolha uma opção válida\n");
                     break;
             }
         }
+
+        System.out.println("Quited by user! ");
+        connection.close();
     }
 }
 

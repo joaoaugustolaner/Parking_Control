@@ -1,38 +1,68 @@
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws Exception {
 
-        String option = "0";
+        int option = 0;
 
-        BufferedReader user = new BufferedReader(new InputStreamReader(System.in));
         Socket socketClient = new Socket("127.0.0.1", 8080);
-        DataOutputStream toServer = new DataOutputStream(socketClient.getOutputStream());
-        BufferedReader fromServer = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
 
-//        Scanner scanner = new Scanner(System.in);
+        ObjectOutputStream outputStream = new ObjectOutputStream(socketClient.getOutputStream());
+        ObjectInputStream inputStream = new ObjectInputStream(socketClient.getInputStream());
 
+        Scanner scanner = new Scanner(System.in);
 
-
-        while (!option.equals("5")) {
-
+        while (option != 4) {
             System.out.println("1 - Cadastrar Veículo");
             System.out.println("2 - Remover Veículo");
-            System.out.println("3 - Listar vagas disponíveis");
-            System.out.println("4 - Listar todas as vagas");
-            System.out.println("5 - SAIR");
+            System.out.println("3 - Listar vagas");
+            System.out.println("4 - SAIR");
 
-            option = user.readLine();
-//            option = scanner.nextLine();
-            toServer.writeBytes(option + "\n");
-            int optionServer = fromServer.read();
-            System.out.println("From server " + optionServer);
+            option = scanner.nextInt();
+            outputStream.writeObject(option);
+
+            switch (option) {
+
+                case 1:
+
+                    System.out.println("\nInforme o lugar a ser reservado: \n");
+                    System.out.println("Informe a linha \n");
+                    outputStream.writeObject(scanner.nextInt());
+                    System.out.println("Informe a coluna \n");
+                    outputStream.writeObject(scanner.nextInt());
+                    String received = (String) inputStream.readObject();
+                    System.out.println(received);
+                    break;
+
+                case 2:
+                    System.out.println("\nInforme o lugar que deseja que seja liberado: \n");
+                    System.out.println(" Informe a linha \n");
+                    outputStream.writeObject(scanner.nextInt());
+                    System.out.println("Informe a coluna \n");
+                    outputStream.writeObject(scanner.nextInt());
+                    received = (String) inputStream.readObject();
+                    System.out.println(received);
+                    break;
+
+                case 3:
+                    System.out.println("As vagas são: ");
+                    received = (String) inputStream.readObject();
+                    System.out.println(received);
+                    break;
+
+                case 4:
+                    System.out.println("Saindo...");
+                    break;
+
+                default:
+                    System.out.println("Digite uma opção válida");
+                    break;
+            }
 
         }
+        System.out.println("Obrigado por usar nossa aplicação");
         socketClient.close();
     }
 }
