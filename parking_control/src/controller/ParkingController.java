@@ -35,10 +35,10 @@ public class ParkingController implements Serializable {
 
     public String allocateCar(int line, int column) {
         if (parkingLot.getSpots()[line][column].isOccupied()) {
-            return "Sorry, this spot is already occupied! please choose another one. \n";
+            return "Desculpe, esta vaga já está ocupada! Por favor escolha outra. \n";
         }
         parkingLot.getSpots()[line][column].setOccupied(true);
-        return "Great! This spot, line: " + line + " and column: " + column + ", is now occpupied by you! \n";
+        return "Muito bom! Esta vaga, linha: " + line + " e coluna: " + column + ", está agora ocupada por você! \n";
 
     }
 
@@ -46,8 +46,8 @@ public class ParkingController implements Serializable {
 
         if (parkingLot.getSpots()[line][column].isOccupied()) {
             parkingLot.getSpots()[line][column].setOccupied(false);
-            return "The spot " + line + column + " is now free! \n";
+            return "A vaga " + line + column + " agora está livre! \n";
         }
-            return "This is not a valid spot, please, select another one! \n";
+            return "Esta não é uma vaga válida, por favor selecione outra! \n";
     }
 }
