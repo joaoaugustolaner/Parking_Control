@@ -1,5 +1,3 @@
-import entity.ParkingLot;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
@@ -8,6 +6,7 @@ public class Client {
     public static void main(String[] args) throws Exception {
 
         int option = 0;
+
 
         Socket socketClient = new Socket("127.0.0.1", 8080);
 
@@ -50,12 +49,9 @@ public class Client {
 
                 case 3:
                     System.out.println("As vagas são: ");
-                    ParkingLot park = (ParkingLot) inputStream.readObject();
-                    for (int i = 0; i < park.getSpots().length; i++) {
-                        for (int j = 0; j < park.getSpots()[i].length; j++) {
-                            System.out.print(park.getSpots()[i][j].isOccupied() + "\t");
-                        }
-                        System.out.println("\n");
+                    String[] results = (String[]) inputStream.readObject();
+                    for (int i = 0; i < results.length; i++) {
+                        System.out.println(results[i]);
                     }
                     break;
 

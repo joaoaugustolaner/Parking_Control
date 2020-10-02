@@ -43,8 +43,8 @@ public class Server {
                     break;
 
                 case 3:
-                    ParkingLot park = parkingController.getParkingLot();
-                    outputStream.writeObject(park);
+                    String[] list = parkingController.listSpots(parkingController.getParkingLot());
+                    outputStream.writeObject(list);
                     break;
 
                 case 4:

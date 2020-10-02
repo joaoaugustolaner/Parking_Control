@@ -2,7 +2,9 @@ package controller;
 
 import entity.ParkingLot;
 
-public class ParkingController {
+import java.io.Serializable;
+
+public class ParkingController implements Serializable {
 
     ParkingLot parkingLot;
 
@@ -14,8 +16,21 @@ public class ParkingController {
         return parkingLot;
     }
 
-    public String listSpots(ParkingLot parkingLot) {
-        return parkingLot.toString();
+    public String[] listSpots(ParkingLot parkingLot) {
+        String[] results = new String[parkingLot.getSpots().length * parkingLot.getSpots()[0].length];
+        int index = 0;
+        for (int i = 0; i < parkingLot.getSpots().length; i++) {
+            for (int j = 0; j < parkingLot.getSpots()[i].length; j++) {
+                if (parkingLot.getSpots()[i][j].isOccupied()) {
+                    results[index] = "O lugar de linha: " + i + " e coluna: " + j + ", está ocupado";
+                } else {
+                    results[index] = "O lugar de linha: " + i + " e coluna: " + j + ", está livre";
+                }
+                index++;
+            }
+
+        }
+        return results;
     }
 
     public String allocateCar(int line, int column) {
